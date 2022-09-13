@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <vector>
+#include  <bits/stdc++.h>
 
 using namespace std;
 
@@ -118,20 +119,30 @@ int main()
     // consoleGames.setOs("X-Box");
     // consoleGames.display();
     
-    while(toupper(choice) != 'N') {
+    while(choice != 'N' || choice != 'n') {
         cout << "Do you want to enter data for a Computer Game or a Console Game (o / c): ";
         cin >> ch;
        
-        if (toupper(ch) === 'O') {
+        if (ch == 'o' || ch == 'O') {
+            computerGames ogames; //define an object for the games
+            
             cout << "Please enter the title of computer game: ";
-            cin.getline(titleGame);
+            getline(cin,titleGame);
             cout << "Please enter price: ";
             cin >> priceGame;
             cout << "Please enter operating system type: ";
-            cin.getline(osGame);
-            computerGames.push({titleGame, priceGame, osGame});
+            getline(cin,osGame);
+            
+            //store data into the object
+            ogames.setTitle(titleGame);
+            ogames.setPrice(priceGame);
+            ogames.setOs(osGame);
+            
+            computerGames.push_back(ogames); //store the object into the vector array
+            
         } else {
-            if(toupper(ch) === 'C') {
+            if(ch == 'C' || ch == 'c') {
+                cout << "Console Game!"
             } else {
                 cout << "Please select only 'O' or 'C'" << endl;
             }
