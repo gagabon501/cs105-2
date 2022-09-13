@@ -46,7 +46,7 @@ public:
         return retVal;
     }
 
-    // Overload the '-' operator to add two complex number and return the sum in a string format
+    // Overload the '-' operator to subtract two complex number and return the difference in a string format
     string operator-(Complex const &otherNum)
     {
         string retVal = "", optrString = " + ";
@@ -60,6 +60,8 @@ public:
 
         return retVal;
     }
+
+    // Overload the '*' operator to multiply two complex number and return the result in a string format
     string operator*(Complex const &otherNum)
     {
         string retVal = "", optrString = " + ";
@@ -87,7 +89,7 @@ void displaySubtraction(Complex num1, Complex num2)
     cout << "Subtraction" << endl;
     cout << "C1: " << num1.GetComplexNum() << endl;
     cout << "C2: " << num2.GetComplexNum() << endl;
-    cout << "C3: " << num1 - num2 << endl; // add two complex numbers with the '+' operator as an overloaded operator
+    cout << "C3: " << num1 - num2 << endl; // subtract two complex numbers with the '-' operator as an overloaded operator
 }
 
 void displayMultiplication(Complex num1, Complex num2)
@@ -95,7 +97,7 @@ void displayMultiplication(Complex num1, Complex num2)
     cout << "Multiplication" << endl;
     cout << "C1: " << num1.GetComplexNum() << endl;
     cout << "C2: " << num2.GetComplexNum() << endl;
-    cout << "C3: " << num1 * num2 << endl; // add two complex numbers with the '+' operator as an overloaded operator
+    cout << "C3: " << num1 * num2 << endl; // multiply two complex numbers with the '*' operator as an overloaded operator
 }
 
 int main()
