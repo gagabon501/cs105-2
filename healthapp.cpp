@@ -10,370 +10,79 @@
 
 #include <iostream>
 #include <string>
-#include <stdlib.h>
-#include <time.h>
-#include "gglib.cpp" //own library of functions
 
 using namespace std;
 
-/***********************************************************************************************************************************************
- * Title        : CS-105 Development Principles-2 Assessment 1
- * Class Name   : Alien
- * Purpose      : This is a class for creating Aliens. This class has the following:
- *                Properties    : private  int weight, height, char gender, string name;
- *                Methods       : public Alien(int w, int h, char g, string n) --> the Constructor for this class
- *                              : public int getWeight() --> getter function to get the weight of the Alien
- *                              : public int getHeight() --> getter function to get the weight of the Alien
- *                              : public char getGender() --> getter function to get the gender of the Alien
- *                              : public string getAlienName() --> getter function to get the name of the Alien
- *                              : public int getPrestige() --> getter function to get the prestige of the Alien
- *                              : public int setGenderPoints() --> setter function to set the gender points of an Alien
- *                              : public void setAlienName(string alienName) --> setter function to set the name of the Alien
- *          Overloaded Operators: '+' operator for "breeding"
- *                                '==' operator to compare two Aliens
- *                                '!=' operator to compare two Aliens
- *                                '>' operator to compare two Aliens
- *                                '>=' operator to compare two Aliens
- *                                '<' operator to compare two Aliens
- *                                '<=' operator to compare two Aliens
- *
- * Constructor  : None
- * Returns      : N/A
- * Author       : Gilberto Gabon - Student No.: 270204759
- *************************************************************************************************************************************************/
-
-class Alien
+// define the class
+class HealthActivity
 {
-    int weight, height;
-    char gender;
-    string name; // To store the name of the alien
+private:
+    int walkingSteps;
+    float runningDistance;
+    string name;
 
 public:
-    // Constructor
-    Alien(int w, int h, char g, string n)
+    // Setter function
+    void SetFunction(string nameUser, int stepsWalked, float kmsRun)
     {
-        weight = w;
-        height = h;
-        gender = g;
-        name = n;
+        walkingSteps = stepsWalked;
+        runningDistance = kmsRun;
+        name = nameUser;
     }
 
-    // Getterfunctions
-    int getWeight()
-    {
-        return weight;
-    }
-
-    int getHeight()
-    {
-        return height;
-    }
-
-    int setGenderPoints()
-    {
-
-        if (toupper(gender) == 'M')
-        {
-            return 2;
-        }
-        else
-        {
-
-            return 3;
-        }
-    }
-
-    char getGender()
-    {
-        return gender;
-    }
-
-    string getAlienName()
+    // Getter functions
+    string GetName()
     {
         return name;
     }
-
-    // setter for alien name
-    void setAlienName(string alienName)
+    int GetSteps()
     {
-        name = alienName;
+        return walkingSteps;
     }
-
-    int getPrestige()
+    float GetRuns()
     {
-        return height * weight * setGenderPoints();
+        return runningDistance;
     }
-
-    // Overload the '+' operator for "breeding"
-    Alien operator+(Alien const &theOtherAlien)
+    // Display data from the class
+    void GetFunction()
     {
-        srand(time(NULL)); // seed the randomizer
-
-        Alien offSpringAlien = Alien(theOtherAlien.weight, theOtherAlien.height, theOtherAlien.gender, theOtherAlien.name); // initialize the offSpringAlien with values from theOtherAlien
-
-        offSpringAlien.weight = (this->weight + theOtherAlien.weight) / 2; // this->weight is the weight of the Alien of the other 'operand' (left side), theOtherAlien.weight is the weight of the other Alien of the other 'operand; (right side)
-        offSpringAlien.height = (this->height + theOtherAlien.height) / 2; // this->height is the height of the Alien of the other 'operand' (left side), theOtherAlien.height is the height of the other Alien of the other 'operand; (right side)
-        offSpringAlien.gender = ((rand() % 2 + 1) == 1 ? 'M' : 'F');       // Randomize a number between 1 and 2 to represent Male or Female where Male = 1; Female = 2;
-        offSpringAlien.name = " ";
-        return offSpringAlien;
-    }
-
-    // Overload the '==' operator to compare two Aliens
-    bool operator==(Alien &obj)
-    {
-
-        if (this->getPrestige() == obj.getPrestige())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // Overload the '!=' operator to compare two Aliens
-    bool operator!=(Alien &obj)
-    {
-
-        if (this->getPrestige() != obj.getPrestige())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // Overload the '>' operator to compare two Aliens
-    bool operator>(Alien &obj)
-    {
-
-        if (this->getPrestige() > obj.getPrestige())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // Overload the '>=' operator to compare two Aliens
-    bool operator>=(Alien &obj)
-    {
-
-        if (this->getPrestige() >= obj.getPrestige())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // Overload the '<' operator to compare two Aliens
-    bool operator<(Alien &obj)
-    {
-
-        if (this->getPrestige() < obj.getPrestige())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    // Overload the '<=' operator to compare two Aliens
-    bool operator<=(Alien &obj)
-    {
-
-        if (this->getPrestige() <= obj.getPrestige())
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        cout << "Name: " << name << endl;
+        cout << "Steps: " << walkingSteps << " steps" << endl;
+        cout << "Walking + Running: " << runningDistance << " kms" << endl;
     }
 };
 
-// Displays Alien information
-void displayAlien(Alien alien)
-{
-    cout << "\n---------------------------------------------------" << endl;
-    cout << "Alien Name: " << alien.getAlienName() << endl;
-    cout << "    Weight: " << alien.getWeight() << endl;
-    cout << "    Height: " << alien.getHeight() << endl;
-    cout << "    Gender: " << alien.getGender() << " (gender point = " << alien.setGenderPoints() << ")" << endl;
-    cout << "  Prestige: " << alien.getPrestige() << " (p = weight * height * genderPoints)" << endl;
-    cout << "---------------------------------------------------" << endl;
-}
-
-// Function to create the Aliens and save those Aliens in a vector variable to be returned to a calling function/routine
-vector<Alien> createAliens()
-{
-    vector<Alien> Aliens; // variable to contain the created aliens
-
-    // Create the aliens and save to the vector variable Aliens
-    Aliens.push_back(Alien(3, 5, 'M', "Alien1")); // aka Alien1
-    Aliens.push_back(Alien(4, 7, 'F', "Alien2")); // aka Alien2
-    Aliens.push_back(Alien(6, 8, 'M', "Alien3")); // aka Alien3
-    Aliens.push_back(Alien(7, 9, 'F', "Alien4")); // aka Alien4
-
-    cout << "\nAlien Pairs Created" << endl;
-    cout << "=====================" << endl;
-
-    for (int i = 0; i < (int)Aliens.size(); i++)
-    {
-        displayAlien(Aliens[i]);
-    }
-
-    return Aliens;
-}
-
-// This function calls createAliens() to create the Aliens and Offsprings are then created by using the overloaded operator '+'
-vector<Alien> createOffsprings()
-{
-    vector<Alien> Aliens = createAliens(); // This creates the Aliens (Aliens1 to Aliens4) and displays the aliens' information
-
-    vector<Alien> AlienOffsprings; // Vectore variable of type 'Alien' to hold the created offsprings
-
-    AlienOffsprings.push_back(Aliens[0] + Aliens[1]); // Offspring from Aliens[0] & Aliens[1]. The '+' operator here has been overloaded
-    AlienOffsprings.push_back(Aliens[2] + Aliens[3]); // Offspring from Aliens[2] & Aliens[3]. The '+' operator here has been overloaded
-
-    AlienOffsprings[0].setAlienName("Alien5");
-    AlienOffsprings[1].setAlienName("Alien6");
-
-    cout << "\nOffsprings created...Alien5 and Alien6";
-    cout << "\n======================================\n";
-
-    for (int i = 0; i < (int)AlienOffsprings.size(); i++)
-    {
-        displayAlien(AlienOffsprings[i]);
-    }
-
-    return AlienOffsprings;
-}
-
-// This function calls createOffsprings(). createOffsprings() calls createAliens()
-void comparePrestige()
-{
-
-    vector<Alien> AlienOffsprings = createOffsprings();
-
-    Alien Alien5 = AlienOffsprings[0];
-    Alien Alien6 = AlienOffsprings[1];
-
-    cout << "\nOffspring Prestige Comparison" << endl;
-    cout << "==============================" << endl;
-    if (Alien5 == Alien6)
-    {
-        cout << "Alien5 == Alien6 ? true" << endl;
-    }
-    else
-    {
-        cout << "Alien5 == Alien6 ? false" << endl;
-    };
-
-    if (Alien5 != Alien6)
-    {
-        cout << "Alien5 != Alien6 ? true" << endl;
-    }
-    else
-    {
-        cout << "Alien5 != Alien6 ? false" << endl;
-    };
-
-    if (Alien5 > Alien6)
-    {
-        cout << "Alien5 >  Alien6 ? true" << endl;
-    }
-    else
-    {
-        cout << "Alien5 >  Alien6 ? false" << endl;
-    };
-
-    if (Alien5 >= Alien6)
-    {
-        cout << "Alien5 >= Alien6 ? true" << endl;
-    }
-    else
-    {
-        cout << "Alien5 >= Alien6 ? false" << endl;
-    };
-
-    if (Alien5 < Alien6)
-    {
-        cout << "Alien5 <  Alien6 ? true" << endl;
-    }
-    else
-    {
-        cout << "Alien5 <  Alien6 ? false" << endl;
-    };
-
-    if (Alien5 <= Alien6)
-    {
-        cout << "Alien5 <= Alien6 ? true" << endl;
-    }
-    else
-    {
-        cout << "Alien5 <= Alien6 ? false" << endl;
-    };
-}
-
-/***********************************************************************************************************************************************
- * Title        : CS-105 Development Principles-2 Assessment 1
- * Function Name: showMainMenu()
- * Purpose      : Function to show the Menu for the Administrator of the system.
- * Parameters   : None
- * Returns      : None
- * Author       : Gilberto Gabon - Student No.: 270204759
- *************************************************************************************************************************************************/
-void showMainMenu()
-{
-
-    int choice = 0;
-    vector<string> menu = {
-        "\n=============================",
-        "          Main Menu",
-        "=============================",
-        "1. Create Alien Pairs        ",
-        "2. Create Offsprings         ",
-        "3. Compare Offspring Prestige",
-        "4. Exit",
-        "=============================",
-        ""};
-
-    while (choice != 4)
-    {
-        choice = showMenu(menu);
-
-        switch (choice)
-        {
-        case 1:
-            createAliens();
-            break;
-        case 2:
-            createOffsprings();
-            break;
-        case 3:
-            comparePrestige();
-            break;
-
-        default:
-            break;
-        }
-    }
-}
-
 int main()
 {
-    showMainMenu();
+    HealthActivity users[5], *ptrUsers; // define an array of users and a pointer to the array of type HealthActivity class
+    ptrUsers = users;                   // pointer to the array users of type HealthActivity
+    string userName = "";
+    int walkSteps = 0, steps = 0;
+    float runKms = 0.00, runs = 0.00;
+    float averageSteps = 0.00, averageDistance = 0.00;
+
+    // get data inputs
+    for (int i = 0; i < 5; i++)
+    {
+        cout << "Enter the name, number of steps and walking + running distance: ";
+        cin >> userName;
+        cin >> walkSteps;
+        cin >> runKms;
+        (ptrUsers + i)->SetFunction(userName, walkSteps, runKms); // save the inputted data into the array via the pointer by calling the SetFunction() method from the HealthActivity class
+    }
+
+    // display output
+    for (int i = 0; i < 5; i++)
+    {
+        (ptrUsers + i)->GetFunction();       // Display the inputted data via a pointer by calling the GetFunction() method from the HealthActivity class
+        steps += (ptrUsers + i)->GetSteps(); // sum the steps from the array of users via a pointer by calling the GetSteps() method from the HealthActivity class
+        runs += (ptrUsers + i)->GetRuns();   // sum the distance from the array of users via a pointer by calling the GetRuns() method from the HealthActivity class
+    }
+
+    averageSteps = steps / 5;   // Compute the average of 5 users
+    averageDistance = runs / 5; // Compute the average of 5 users
+    cout << "Average steps of 5 users: " << averageSteps << " steps" << endl;
+    cout << "Average distance of walking + running for 5 users: " << averageDistance << " kms" << endl;
+
     return 0;
 }
