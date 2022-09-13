@@ -14,6 +14,8 @@
 #include <math.h>
 #include <vector>
 #include  <bits/stdc++.h>
+#include <limits>
+
 
 using namespace std;
 
@@ -128,10 +130,12 @@ int main()
             
             cout << "Please enter the title of computer game: ";
             getline(cin,titleGame);
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
             cout << "Please enter price: ";
             cin >> priceGame;
             cout << "Please enter operating system type: ";
             getline(cin,osGame);
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
             
             //store data into the object
             ogames.setTitle(titleGame);
@@ -142,13 +146,17 @@ int main()
             
         } else {
             if(ch == 'C' || ch == 'c') {
-                cout << "Console Game!"
+                cout << "Console Game!";
             } else {
                 cout << "Please select only 'O' or 'C'" << endl;
             }
         }
+         
         cout << "Do you want to add another item? ";
         cin >> choice;
+        if (choice == 'N' or choice == 'n') {
+            break;
+        }
     }
    
     return 0;
