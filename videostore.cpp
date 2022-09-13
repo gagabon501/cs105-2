@@ -67,7 +67,7 @@ class ComputerGame: public VideoGame {
             return os;
         }
     
-        //Display function
+        //Display function - function overriding - polymorphism. This display() function has added the display of the OS type.
         void display() {
             VideoGame::display(); //call the display function of the base class
             cout << "OS Type: " << os << endl; //then add the derived class' display method
@@ -91,7 +91,7 @@ class ConsoleGame: public VideoGame {
             return os;
         }
     
-        //Display function
+        //Display function - function overriding - polymorphism. This display() function has added the display of the console type.
         void display() {
             VideoGame::display(); //call the display function of the base class
             cout << "Console Type: " << os << endl; //then add the derived class' display method
@@ -111,16 +111,6 @@ int main()
     
     char choice = 'Y', ch = 'O';
   
-    // computerGames.setTitle("Counter Strike");
-    // computerGames.setPrice(10.50);
-    // computerGames.setOs("Windows");
-    // computerGames.display();
-    
-    // consoleGames.setTitle("Arena Footbal");
-    // consoleGames.setPrice(20.50);
-    // consoleGames.setOs("X-Box");
-    // consoleGames.display();
-    
     while(choice != 'N' || choice != 'n') {
         cout << "Do you want to enter data for a Computer Game or a Console Game (o / c): ";
         cin >> ch;
@@ -146,7 +136,23 @@ int main()
             
         } else {
             if(ch == 'C' || ch == 'c') {
-                cout << "Console Game!";
+                ConsoleGame cgames; //define an object for the games
+
+                cout << "Please enter the title of console game: ";
+                getline(cin,titleGame);
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+                cout << "Please enter price: ";
+                cin >> priceGame;
+                cout << "Please enter operating system type: ";
+                getline(cin,osGame);
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+
+                //store data into the object
+                cgames.setTitle(titleGame);
+                cgames.setPrice(priceGame);
+                cgames.setOs(osGame);
+
+                consoleGames.push_back(cgames); //store the object into the vector array
             } else {
                 cout << "Please select only 'O' or 'C'" << endl;
             }
@@ -158,6 +164,8 @@ int main()
             break;
         }
     }
+    
+    
    
     return 0;
 }
