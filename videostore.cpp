@@ -65,19 +65,51 @@ class ComputerGame: public VideoGame {
     
         //Display function
         void display() {
-            cout << "OS Type: " << os << endl;
+            VideoGame::display(); //call the display function of the base class
+            cout << "OS Type: " << os << endl; //then add the derived class' display method
         }
     
     
 };
 
+class ConsoleGame: public VideoGame {
+    private:
+        string os;
+    public:
+    
+        //Setters
+        void setOs(string o) {
+            os = o;
+        }
+    
+        //Getters
+        string getOs() {
+            return os;
+        }
+    
+        //Display function
+        void display() {
+            VideoGame::display(); //call the display function of the base class
+            cout << "Console Type: " << os << endl; //then add the derived class' display method
+        }
+    
+    
+};
 int main()
 {
-    ComputerGame cgames;
-    cgames.setTitle("Counter Strike");
-    cgames.setPrice(10.50);
-    cgames.setOs("Windows");
-    cgames.display();
+    ComputerGame computerGames;
+  
+    computerGames.setTitle("Counter Strike");
+    computerGames.setPrice(10.50);
+    computerGames.setOs("Windows");
+    computerGames.display();
+    
+    ConsoleGame consoleGames;
+ 
+    consoleGames.setTitle("Arena Footbal");
+    consoleGames.setPrice(20.50);
+    consoleGames.setOs("X-Box");
+    consoleGames.display();
    
     return 0;
 }
