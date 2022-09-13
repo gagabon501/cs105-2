@@ -12,6 +12,7 @@
 #include <string>
 #include <stdlib.h>
 #include <math.h>
+#include <vector>
 
 using namespace std;
 
@@ -95,10 +96,17 @@ class ConsoleGame: public VideoGame {
     
     
 };
+
 int main()
 {
-    ComputerGame computerGames;
-    ConsoleGame consoleGames;
+    vector<ComputerGame> computerGames;
+    vector<ConsoleGame> consoleGames;
+    
+    string titleGame;
+    float priceGame;
+    string osGame;
+    
+    char choice = 'Y', ch = 'O';
   
     // computerGames.setTitle("Counter Strike");
     // computerGames.setPrice(10.50);
@@ -109,6 +117,28 @@ int main()
     // consoleGames.setPrice(20.50);
     // consoleGames.setOs("X-Box");
     // consoleGames.display();
+    
+    while(toupper(choice) != 'N') {
+        cout << "Do you want to enter data for a Computer Game or a Console Game (o / c): ";
+        cin >> ch;
+       
+        if (toupper(ch) === 'O') {
+            cout << "Please enter the title of computer game: ";
+            cin.getline(titleGame);
+            cout << "Please enter price: ";
+            cin >> priceGame;
+            cout << "Please enter operating system type: ";
+            cin.getline(osGame);
+            computerGames.push({titleGame, priceGame, osGame});
+        } else {
+            if(toupper(ch) === 'C') {
+            } else {
+                cout << "Please select only 'O' or 'C'" << endl;
+            }
+        }
+        cout << "Do you want to add another item? ";
+        cin >> choice;
+    }
    
     return 0;
 }
