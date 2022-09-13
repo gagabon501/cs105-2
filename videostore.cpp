@@ -124,7 +124,7 @@ int main()
         cin >> ch;
        
         if (ch == 'o' || ch == 'O') {
-            computerGames ogames; //define an object for the games
+            ComputerGame ogames; //define an object for the games
             
             cout << "Please enter the title of computer game: ";
             getline(cin,titleGame);
