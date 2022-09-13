@@ -98,18 +98,17 @@ class ConsoleGame: public VideoGame {
 int main()
 {
     ComputerGame computerGames;
-  
-    computerGames.setTitle("Counter Strike");
-    computerGames.setPrice(10.50);
-    computerGames.setOs("Windows");
-    computerGames.display();
-    
     ConsoleGame consoleGames;
- 
-    consoleGames.setTitle("Arena Footbal");
-    consoleGames.setPrice(20.50);
-    consoleGames.setOs("X-Box");
-    consoleGames.display();
+  
+    // computerGames.setTitle("Counter Strike");
+    // computerGames.setPrice(10.50);
+    // computerGames.setOs("Windows");
+    // computerGames.display();
+    
+    // consoleGames.setTitle("Arena Footbal");
+    // consoleGames.setPrice(20.50);
+    // consoleGames.setOs("X-Box");
+    // consoleGames.display();
    
     return 0;
 }
