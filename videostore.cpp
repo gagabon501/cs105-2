@@ -22,127 +22,45 @@ private:
     float price;
 
 public:
-    Complex(int var1, int var2)
+    // Display data from the class
+    void display()
     {
-        a = var1;
-        b = var2;
-    }
-
-    string GetComplexNum()
-    {
-        return to_string(a) + " + " + to_string(b) + "i";
-    };
-
-    // Overload the '+' operator to add two complex number and return the sum in a string format
-    string operator+(Complex const &otherNum)
-    {
-        string retVal = "";
-        int sumA = 0, sumB = 0;
-
-        sumA = this->a + otherNum.a;
-        sumB = this->b + otherNum.b;
-
-        retVal = to_string(sumA) + " + " + to_string(sumB) + "i";
-
-        return retVal;
-    }
-
-    // Overload the '-' operator to subtract two complex number and return the difference in a string format
-    string operator-(Complex const &otherNum)
-    {
-        string retVal = "", optrString = " + ";
-        int diffA = 0, diffB = 0;
-
-        diffA = this->a - otherNum.a;
-        diffB = this->b - otherNum.b;
-        optrString = diffB < 0 ? " - " : " + ";
-
-        retVal = to_string(abs(diffA)) + optrString + to_string(abs(diffB)) + "i";
-
-        return retVal;
-    }
-
-    // Overload the '*' operator to multiply two complex number and return the result in a string format
-    string operator*(Complex const &otherNum)
-    {
-        string retVal = "", optrString = " + ";
-        int prodA = 0, prodB = 0;
-
-        prodA = (this->a * otherNum.a) - (this->b * otherNum.b);
-        prodB = (this->a * otherNum.b) + (this->b * otherNum.a);
-
-        retVal = to_string(prodA) + optrString + to_string(prodB) + "i";
-
-        return retVal;
+        cout << "Title: " << title << endl;
+        cout << "Price: " << price << endl;
     }
 };
 
-void displayAddition(Complex num1, Complex num2)
-{
-    cout << "Addition" << endl;
-    cout << "C1: " << num1.GetComplexNum() << endl;
-    cout << "C2: " << num2.GetComplexNum() << endl;
-    cout << "C3: " << num1 + num2 << endl; // add two complex numbers with the '+' operator as an overloaded operator
-}
-
-void displaySubtraction(Complex num1, Complex num2)
-{
-    cout << "Subtraction" << endl;
-    cout << "C1: " << num1.GetComplexNum() << endl;
-    cout << "C2: " << num2.GetComplexNum() << endl;
-    cout << "C3: " << num1 - num2 << endl; // subtract two complex numbers with the '-' operator as an overloaded operator
-}
-
-void displayMultiplication(Complex num1, Complex num2)
-{
-    cout << "Multiplication" << endl;
-    cout << "C1: " << num1.GetComplexNum() << endl;
-    cout << "C2: " << num2.GetComplexNum() << endl;
-    cout << "C3: " << num1 * num2 << endl; // multiply two complex numbers with the '*' operator as an overloaded operator
-}
-
 int main()
 {
-    Complex num1(3, 2); // initialize first complex number;
-    int realNum, imaginaryNum;
-    int choice = 0;
+    HealthActivity users[5], *ptrUsers; // define an array of users and a pointer to the array of type HealthActivity class
+    ptrUsers = users;                   // pointer to the array users of type HealthActivity
+    string userName = "";
+    int walkSteps = 0, steps = 0;
+    float runKms = 0.00, runs = 0.00;
+    float averageSteps = 0.00, averageDistance = 0.00;
 
-    cout << "1st Complex number: " << num1.GetComplexNum() << endl
-         << endl;
-
-    cout << "Enter 2nd Complex number values:" << endl;
-    cout << "Enter real value: ";
-    cin >> realNum;
-    cout << "Enter imaginary value: ";
-    cin >> imaginaryNum;
-
-    Complex num2(realNum, imaginaryNum); // define complex number2
-
-    while (choice != 4)
+    // get data inputs
+    for (int i = 0; i < 5; i++)
     {
-        cout << "\nChoose Operation from Menu:" << endl;
-        cout << "1. Addition" << endl;
-        cout << "2. Subtraction" << endl;
-        cout << "3. Multiplication" << endl;
-        cout << "4. Exit" << endl;
-        cout << "\nPlease enter your option: ";
-        cin >> choice;
-        switch (choice)
-        {
-        case 1:
-            displayAddition(num1, num2);
-            break;
-        case 2:
-            displaySubtraction(num1, num2);
-            break;
-        case 3:
-            displayMultiplication(num1, num2);
-            break;
-
-        default:
-            break;
-        }
+        cout << "Enter the name, number of steps and walking + running distance: ";
+        cin >> userName;
+        cin >> walkSteps;
+        cin >> runKms;
+        (ptrUsers + i)->SetFunction(userName, walkSteps, runKms); // save the inputted data into the array via the pointer by calling the SetFunction() method from the HealthActivity class
     }
+
+    // display output
+    for (int i = 0; i < 5; i++)
+    {
+        (ptrUsers + i)->GetFunction();       // Display the inputted data via a pointer by calling the GetFunction() method from the HealthActivity class
+        steps += (ptrUsers + i)->GetSteps(); // sum the steps from the array of users via a pointer by calling the GetSteps() method from the HealthActivity class
+        runs += (ptrUsers + i)->GetRuns();   // sum the distance from the array of users via a pointer by calling the GetRuns() method from the HealthActivity class
+    }
+
+    averageSteps = steps / 5;   // Compute the average of 5 users
+    averageDistance = runs / 5; // Compute the average of 5 users
+    cout << "Average steps of 5 users: " << averageSteps << " steps" << endl;
+    cout << "Average distance of walking + running for 5 users: " << averageDistance << " kms" << endl;
 
     return 0;
 }
