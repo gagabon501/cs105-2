@@ -10,10 +10,8 @@
 
 #include <iostream>
 #include <string>
-#include <stdlib.h>
 #include <math.h>
 #include <vector>
-#include <bits/stdc++.h>
 #include <limits>
 
 using namespace std;
@@ -27,6 +25,7 @@ private:
 public:
     // Setters
     void setTitle(string t)
+    // void setTitle(int t)
     {
         title = t;
     }
@@ -37,7 +36,9 @@ public:
     }
 
     // Getters
+    // int getTitle()
     string getTitle()
+
     {
         return title;
     }
@@ -63,6 +64,7 @@ private:
 public:
     // Setters
     void setOs(string o)
+
     {
         os = o;
     }
@@ -88,7 +90,7 @@ private:
 
 public:
     // Setters
-    void setOs(string o)
+    void setOs(int o)
     {
         os = o;
     }
@@ -118,57 +120,61 @@ int main()
     string osGame;
     int i = 0;
 
-    char choice = 'Y', ch = 'O';
+    int choice = 1, ch = 1;
+    ComputerGame ogames; // define an object for the games
+    ComputerGame *ptrgames;
 
-    while (choice != 'N' || choice != 'n' || i > 10)
+    while (choice != 0 || i > 10)
     {
-        cout << "Do you want to enter data for a Computer Game or a Console Game (o / c): ";
+        ptrgames = new ComputerGame;
+        cout << "Do you want to enter data for a Computer Game or a Console Game (1 / 2): ";
         cin >> ch;
 
-        if (ch == 'o' || ch == 'O')
+        if (ch == 1)
         {
-            ComputerGame ogames; // define an object for the games
-
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
             cout << "Please enter the title of computer game: ";
             getline(cin, titleGame);
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+            ptrgames->setTitle(titleGame);
+
             cout << "Please enter price: ";
             cin >> priceGame;
+            ptrgames->setPrice(priceGame);
+
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
             cout << "Please enter operating system type: ";
             getline(cin, osGame);
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+            ptrgames->setOs(osGame);
 
-            // store data into the object
-            ptrCompGames[i] = new ComputerGame;
-            ptrCompGames[i]->setTitle(titleGame);
-            ptrCompGames[i]->setPrice(priceGame);
-            ptrCompGames[i]->setOs(osGame);
+            ptrCompGames[i] = ptrgames;
         }
         else
         {
-            if (ch == 'C' || ch == 'c')
+            if (ch == 2)
             {
                 cout << "Console games";
             }
             else
             {
-                cout << "Please select only 'O' or 'C'" << endl;
+                cout << "Please select only '1' or '2'" << endl;
             }
         }
 
-        cout << "Do you want to add another item? ";
+        cout << "Do you want to add another item (1=Yes/0=No)? ";
         cin >> choice;
-        if (choice == 'N' or choice == 'n')
+        if (choice == 0)
         {
             break;
         }
 
         i++;
     }
+    cout << "i: " << i << endl;
 
-    for (int i = 0; i < 10; i++)
+    for (int j = 0; j <= i; j++)
     {
-        ptrCompGames[i]->display();
+        ptrCompGames[j]->display();
+        // cout << ptrCompGames[j] << endl;
     }
 
     return 0;
