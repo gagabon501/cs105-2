@@ -13,9 +13,8 @@
 #include <stdlib.h>
 #include <math.h>
 #include <vector>
-#include  <bits/stdc++.h>
+#include <bits/stdc++.h>
 #include <limits>
-
 
 using namespace std;
 
@@ -56,54 +55,6 @@ public:
     }
 };
 
-<<<<<<< HEAD
-class ComputerGame: public VideoGame {
-    private:
-        string os;
-    public:
-    
-        //Setters
-        void setOs(string o) {
-            os = o;
-        }
-    
-        //Getters
-        string getOs() {
-            return os;
-        }
-    
-        //Display function - function overriding - polymorphism. This display() function has added the display of the OS type.
-        void display() {
-            VideoGame::display(); //call the display function of the base class
-            cout << "OS Type: " << os << endl; //then add the derived class' display method
-        }
-    
-    
-};
-
-class ConsoleGame: public VideoGame {
-    private:
-        string os;
-    public:
-    
-        //Setters
-        void setOs(string o) {
-            os = o;
-        }
-    
-        //Getters
-        string getOs() {
-            return os;
-        }
-    
-        //Display function - function overriding - polymorphism. This display() function has added the display of the console type.
-        void display() {
-            VideoGame::display(); //call the display function of the base class
-            cout << "Console Type: " << os << endl; //then add the derived class' display method
-        }
-    
-    
-=======
 class ComputerGame : public VideoGame
 {
 private:
@@ -122,7 +73,7 @@ public:
         return os;
     }
 
-    // Display function
+    // Display function - function overriding - polymorphism. This display() function has added the display of the OS type.
     void display()
     {
         VideoGame::display();              // call the display function of the base class
@@ -148,108 +99,77 @@ public:
         return os;
     }
 
-    // Display function
+    // Display function - function overriding - polymorphism. This display() function has added the display of the console type.
     void display()
     {
         VideoGame::display();                   // call the display function of the base class
         cout << "Console Type: " << os << endl; // then add the derived class' display method
     }
->>>>>>> e2f65a1 (added videostore.cpp)
 };
 
 int main()
 {
-<<<<<<< HEAD
-    vector<ComputerGame> computerGames;
-    vector<ConsoleGame> consoleGames;
-    
-    vector<VideoGame> *ptrVideoGames;
-    
+
+    ComputerGame *ptrCompGames[10];
+    ConsoleGame *ptrConsGames[10];
+
     string titleGame;
     float priceGame;
     string osGame;
-    
+    int i = 0;
+
     char choice = 'Y', ch = 'O';
-  
-    while(choice != 'N' || choice != 'n') {
+
+    while (choice != 'N' || choice != 'n' || i > 10)
+    {
         cout << "Do you want to enter data for a Computer Game or a Console Game (o / c): ";
         cin >> ch;
-       
-        if (ch == 'o' || ch == 'O') {
-            ComputerGame ogames; //define an object for the games
-            
+
+        if (ch == 'o' || ch == 'O')
+        {
+            ComputerGame ogames; // define an object for the games
+
             cout << "Please enter the title of computer game: ";
-            getline(cin,titleGame);
+            getline(cin, titleGame);
             cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
             cout << "Please enter price: ";
             cin >> priceGame;
             cout << "Please enter operating system type: ";
-            getline(cin,osGame);
+            getline(cin, osGame);
             cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-            
-            //store data into the object
-            ogames.setTitle(titleGame);
-            ogames.setPrice(priceGame);
-            ogames.setOs(osGame);
-            
-            computerGames.push_back(ogames); //store the object into the vector array
-            ptrVideoGames.push_back(ogames);
-            
-        } else {
-            if(ch == 'C' || ch == 'c') {
-                ConsoleGame cgames; //define an object for the games
 
-                cout << "Please enter the title of console game: ";
-                getline(cin,titleGame);
-                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-                cout << "Please enter price: ";
-                cin >> priceGame;
-                cout << "Please enter operating system type: ";
-                getline(cin,osGame);
-                cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
-
-                //store data into the object
-                cgames.setTitle(titleGame);
-                cgames.setPrice(priceGame);
-                cgames.setOs(osGame);
-
-                consoleGames.push_back(cgames); //store the object into the vector array
-                ptrVideoGames.push_back(cgames);
-            } else {
+            // store data into the object
+            ptrCompGames[i] = new ComputerGame;
+            ptrCompGames[i]->setTitle(titleGame);
+            ptrCompGames[i]->setPrice(priceGame);
+            ptrCompGames[i]->setOs(osGame);
+        }
+        else
+        {
+            if (ch == 'C' || ch == 'c')
+            {
+                cout << "Console games";
+            }
+            else
+            {
                 cout << "Please select only 'O' or 'C'" << endl;
             }
         }
-         
+
         cout << "Do you want to add another item? ";
         cin >> choice;
-        if (choice == 'N' or choice == 'n') {
+        if (choice == 'N' or choice == 'n')
+        {
             break;
         }
+
+        i++;
     }
-    
-    for (int i = 0; i < (int)ptrVideoGames.size(); i++)
+
+    for (int i = 0; i < 10; i++)
     {
-        // cout << "\nI am a WARRIOR with name " << warrior[i].getName() << " and with race " << warrior[i].whatRace() << " and my attack is: " << warrior[i].attack();
-        ptrVideoGames[i]->display;
+        ptrCompGames[i]->display();
     }
-    
-    
-   
-=======
-    ComputerGame computerGames;
 
-    computerGames.setTitle("Counter Strike");
-    computerGames.setPrice(10.50);
-    computerGames.setOs("Windows");
-    computerGames.display();
-
-    ConsoleGame consoleGames;
-
-    consoleGames.setTitle("Arena Footbal");
-    consoleGames.setPrice(20.50);
-    consoleGames.setOs("X-Box");
-    consoleGames.display();
-
->>>>>>> e2f65a1 (added videostore.cpp)
     return 0;
 }
