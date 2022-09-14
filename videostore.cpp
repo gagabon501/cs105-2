@@ -51,6 +51,7 @@ public:
     // Display data from the class
     void display()
     {
+        cout << "\n*********************************" << endl;
         cout << "Title: " << title << endl;
         cout << "Price: " << price << endl;
     }
@@ -90,7 +91,7 @@ private:
 
 public:
     // Setters
-    void setOs(int o)
+    void setOs(string o)
     {
         os = o;
     }
@@ -112,47 +113,66 @@ public:
 int main()
 {
 
-    ComputerGame *ptrCompGames[10];
-    ConsoleGame *ptrConsGames[10];
+    vector<ComputerGame *> ptrCompGames; // use vector arrays for variable number of entries. This is an array of pointers to objects of the class ComputerGame
+    vector<ConsoleGame *> ptrConsGames;  // use vector arrays for variable number of entries. This is an array of pointers to objects of the class ConsoleGame
+
+    ComputerGame *ptrgames;
+    ConsoleGame *ptrconsoles;
 
     string titleGame;
     float priceGame;
     string osGame;
-    int i = 0;
 
     int choice = 1, ch = 1;
-    ComputerGame ogames; // define an object for the games
-    ComputerGame *ptrgames;
 
-    while (choice != 0 || i > 10)
+    cout << "              Video Games Data Entry" << endl;
+    cout << "************************************************" << endl;
+    cout << "\n\n";
+    while (choice != 0)
     {
-        ptrgames = new ComputerGame;
-        cout << "Do you want to enter data for a Computer Game or a Console Game (1 / 2): ";
+        ptrgames = new ComputerGame;   // always create a new object for every iteration
+        ptrconsoles = new ConsoleGame; // always create a new object for every iteration
+
+        cout << "Do you want to enter data for a [1] Computer Game or a [2] Console Game: ";
         cin >> ch;
 
         if (ch == 1)
         {
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
             cout << "Please enter the title of computer game: ";
             getline(cin, titleGame);
-            ptrgames->setTitle(titleGame);
+            ptrgames->setTitle(titleGame); // save immediately before any clearing the buffer command is encountered.
 
             cout << "Please enter price: ";
             cin >> priceGame;
             ptrgames->setPrice(priceGame);
 
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
+            cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
             cout << "Please enter operating system type: ";
             getline(cin, osGame);
-            ptrgames->setOs(osGame);
+            ptrgames->setOs(osGame); // save immediately before any clearing the buffer command is encountered.
 
-            ptrCompGames[i] = ptrgames;
+            ptrCompGames.push_back(ptrgames); // save the pointer into the vector array that holds every pointer to an object from the class ComputerGame. Using a vector means unlimited number of entries.
         }
         else
         {
             if (ch == 2)
             {
-                cout << "Console games";
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
+                cout << "Please enter the title of console game: ";
+                getline(cin, titleGame);
+                ptrconsoles->setTitle(titleGame); // save immediately before any clearing the buffer command is encountered.
+
+                cout << "Please enter price: ";
+                cin >> priceGame;
+                ptrconsoles->setPrice(priceGame);
+
+                cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
+                cout << "Please enter console type: ";
+                getline(cin, osGame);
+                ptrconsoles->setOs(osGame); // save immediately before any clearing the buffer command is encountered.
+
+                ptrConsGames.push_back(ptrconsoles); // save the pointer into the vector array that holds every pointer to an object from the class ComputerGame. Using a vector means unlimited number of entries.
             }
             else
             {
@@ -166,15 +186,19 @@ int main()
         {
             break;
         }
-
-        i++;
     }
-    cout << "i: " << i << endl;
 
-    for (int j = 0; j <= i; j++)
+    cout << "Video Games List:" << endl;
+    cout << "****************************************" << endl;
+
+    for (int j = 0; j < (int)ptrCompGames.size(); j++)
     {
         ptrCompGames[j]->display();
-        // cout << ptrCompGames[j] << endl;
+    }
+
+    for (int j = 0; j < (int)ptrConsGames.size(); j++)
+    {
+        ptrConsGames[j]->display();
     }
 
     return 0;
