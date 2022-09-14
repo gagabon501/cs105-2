@@ -105,6 +105,8 @@ int main()
     vector<ComputerGame> computerGames;
     vector<ConsoleGame> consoleGames;
     
+    vector<VideoGame> *ptrVideoGames;
+    
     string titleGame;
     float priceGame;
     string osGame;
@@ -133,6 +135,7 @@ int main()
             ogames.setOs(osGame);
             
             computerGames.push_back(ogames); //store the object into the vector array
+            ptrVideoGames.push_back(ogames);
             
         } else {
             if(ch == 'C' || ch == 'c') {
@@ -153,6 +156,7 @@ int main()
                 cgames.setOs(osGame);
 
                 consoleGames.push_back(cgames); //store the object into the vector array
+                ptrVideoGames.push_back(cgames);
             } else {
                 cout << "Please select only 'O' or 'C'" << endl;
             }
@@ -163,6 +167,12 @@ int main()
         if (choice == 'N' or choice == 'n') {
             break;
         }
+    }
+    
+    for (int i = 0; i < (int)ptrVideoGames.size(); i++)
+    {
+        // cout << "\nI am a WARRIOR with name " << warrior[i].getName() << " and with race " << warrior[i].whatRace() << " and my attack is: " << warrior[i].attack();
+        ptrVideoGames[i]->display;
     }
     
     
