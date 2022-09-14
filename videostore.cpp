@@ -26,24 +26,28 @@ private:
     float price;
 
 public:
-    //Setters
-    void setTitle(string t) {
+    // Setters
+    void setTitle(string t)
+    {
         title = t;
     }
-    
-    void setPrice(float p) {
+
+    void setPrice(float p)
+    {
         price = p;
     }
-    
-    //Getters
-    string getTitle() {
+
+    // Getters
+    string getTitle()
+    {
         return title;
     }
-    
-    float getPrice() {
+
+    float getPrice()
+    {
         return price;
     }
-        
+
     // Display data from the class
     void display()
     {
@@ -52,6 +56,7 @@ public:
     }
 };
 
+<<<<<<< HEAD
 class ComputerGame: public VideoGame {
     private:
         string os;
@@ -98,10 +103,63 @@ class ConsoleGame: public VideoGame {
         }
     
     
+=======
+class ComputerGame : public VideoGame
+{
+private:
+    string os;
+
+public:
+    // Setters
+    void setOs(string o)
+    {
+        os = o;
+    }
+
+    // Getters
+    string getOs()
+    {
+        return os;
+    }
+
+    // Display function
+    void display()
+    {
+        VideoGame::display();              // call the display function of the base class
+        cout << "OS Type: " << os << endl; // then add the derived class' display method
+    }
+};
+
+class ConsoleGame : public VideoGame
+{
+private:
+    string os;
+
+public:
+    // Setters
+    void setOs(string o)
+    {
+        os = o;
+    }
+
+    // Getters
+    string getOs()
+    {
+        return os;
+    }
+
+    // Display function
+    void display()
+    {
+        VideoGame::display();                   // call the display function of the base class
+        cout << "Console Type: " << os << endl; // then add the derived class' display method
+    }
+>>>>>>> e2f65a1 (added videostore.cpp)
 };
 
 int main()
 {
+<<<<<<< HEAD
     vector<ComputerGame> computerGames;
     vector<ConsoleGame> consoleGames;
     
@@ -177,5 +235,21 @@ int main()
     
     
    
+=======
+    ComputerGame computerGames;
+
+    computerGames.setTitle("Counter Strike");
+    computerGames.setPrice(10.50);
+    computerGames.setOs("Windows");
+    computerGames.display();
+
+    ConsoleGame consoleGames;
+
+    consoleGames.setTitle("Arena Footbal");
+    consoleGames.setPrice(20.50);
+    consoleGames.setOs("X-Box");
+    consoleGames.display();
+
+>>>>>>> e2f65a1 (added videostore.cpp)
     return 0;
 }
