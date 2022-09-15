@@ -16,6 +16,7 @@
 
 using namespace std;
 
+// Base Class
 class VideoGame
 {
 private:
@@ -28,10 +29,9 @@ public:
     {
         cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
         cout << "Enter title of game: ";
-        getline(cin, title); // direct straight saving to the object's property
+        getline(cin, title); // direct straight saving to the class' property
         cout << "        Enter price: ";
-
-        cin >> price; // direct straight saving to the object's property
+        cin >> price; // direct straight saving to the class' property
     }
 
     // Display data from the class. Make this function a virtual function to effect dynamic binding
@@ -43,6 +43,7 @@ public:
     }
 };
 
+// Derived Class
 class ComputerGame : public VideoGame
 {
 private:
@@ -60,14 +61,14 @@ public:
     // getVideoData() function - function overriding - polymorphism. This getVideoData() function has added the input for the OS of the game
     void getVideoData()
     {
-        VideoGame::getVideoData();
+        VideoGame::getVideoData();                                // call the getVideoData() function of the base class
         cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
         cout << "   Operating System: ";
-
-        getline(cin, os); // direct - straight saving to the object's property
+        getline(cin, os); // save straight to the class property
     }
 };
 
+// Derived Class
 class ConsoleGame : public VideoGame
 {
 private:
@@ -118,20 +119,20 @@ int main()
 
         if (ch == 'o' || ch == 'O')
         {
-            ptrgames->getVideoData();          // get games input
+            ptrgames->getVideoData();          // get games input - made the code cleaner by placing the routine to take user input inside the Base Class and into the Derived Class (the added data to take from user)
             ptrVideoGames.push_back(ptrgames); // save into the array of pointers
         }
         else
         {
             if (ch == 'c' || ch == 'C')
             {
-                ptrconsoles->getVideoData();          // get console inputs
+                ptrconsoles->getVideoData();          // get console inputs - made the code cleaner by placing the routine to take user input inside the Base Class and into the Derived Class (the added data to take from user)
                 ptrVideoGames.push_back(ptrconsoles); // save into the array of pointers
             }
             else
             {
                 cout << "Please select only 'o' or 'c'" << endl;
-                continue; // this causes to loop back to the top
+                continue; // this causes to loop back to the top - avoiding the execution of code below
             }
         }
 
@@ -149,7 +150,7 @@ int main()
 
     for (int j = 0; j < (int)ptrVideoGames.size(); j++)
     {
-        ptrVideoGames[j]->display();
+        ptrVideoGames[j]->display(); // polymorphism in action! The function display() here calls the relevant display() function based on the kind of object contained in the current element of the array of pointers
     }
 
     return 0;
