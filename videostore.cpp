@@ -23,21 +23,23 @@ private:
     float price;
 
 public:
-    // Virtual function to get data inputs from user
-    virtual void getVideoData() {
+    // Virtual function to get data inputs from user. Made this virtual function for dynamic binding
+    virtual void getVideoData()
+    {
         cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
-        cout << "Please enter the title of computer/console game: ";
-        getline(cin, title); //direct straight saving to the object's property
-        cout << "Please enter price: ";
-        cin >> price; //direct straight saving to the object's property
+        cout << "Enter title of game: ";
+        getline(cin, title); // direct straight saving to the object's property
+        cout << "        Enter price: ";
+
+        cin >> price; // direct straight saving to the object's property
     }
 
     // Display data from the class. Make this function a virtual function to effect dynamic binding
     virtual void display()
     {
         cout << "\n*********************************" << endl;
-        cout << "Title: " << title << endl;
-        cout << "Price: " << price << endl;
+        cout << "       Title: " << title << endl;
+        cout << "       Price: " << price << endl;
     }
 };
 
@@ -47,22 +49,23 @@ private:
     string os;
 
 public:
-
     // Display function - function overriding - polymorphism. This display() function has added the display of the OS type.
     void display()
     {
-        VideoGame::display();              // call the display function of the base class
-        cout << "OS Type: " << os << endl; // then add the derived class' display method
+        VideoGame::display();                   // call the display function of the base class
+        cout << "     OS Type: " << os << endl; // then add the derived class' display method
+        cout << "*********************************" << endl;
     }
-    
-    //Function override
-    void getVideoData() {
+
+    // getVideoData() function - function overriding - polymorphism. This getVideoData() function has added the input for the OS of the game
+    void getVideoData()
+    {
         VideoGame::getVideoData();
         cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
-        cout << "Please enter operating system type: ";
-        getline(cin, os); //direct - straight saving to the object's property
+        cout << "   Operating System: ";
+
+        getline(cin, os); // direct - straight saving to the object's property
     }
-    
 };
 
 class ConsoleGame : public VideoGame
@@ -76,68 +79,74 @@ public:
     {
         VideoGame::display();                   // call the display function of the base class
         cout << "Console Type: " << os << endl; // then add the derived class' display method
+        cout << "*********************************" << endl;
     }
-    
-    //Function override
-    void getVideoData() {
+
+    // getVideoData() function - function overriding - polymorphism. This getVideoData() function has added the input for the console type of the game
+    void getVideoData()
+    {
         VideoGame::getVideoData();
         cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
-        cout << "Please enter console type: ";
-        getline(cin, os); //direct - straight saving to the object's property
+        cout << "       Console type: ";
+        getline(cin, os); // direct - straight saving to the object's property
     }
 };
 
 int main()
 {
 
-    vector<VideoGame *> ptrVideoGames;
+    vector<VideoGame *> ptrVideoGames; // Define the vector array that will contain all the pointer to objects. This is a pointer variable that is a vector of type VideoGame
 
-    ComputerGame *ptrgames;
-    ConsoleGame *ptrconsoles;
+    ComputerGame *ptrgames;   // Define the pointer to the game objects
+    ConsoleGame *ptrconsoles; // Define the pointer to the console objects
 
-    int choice = 1, ch = 1;
+    // int choice = 1, ch = 1;
+    char choice = ' ', ch = ' ';
 
-    cout << "              Video Games Data Entry" << endl;
-    cout << "************************************************" << endl;
-    cout << "\n\n";
-    while (choice != 0)
+    cout << "\n**************************************************************************" << endl;
+    cout << "                 Video Games Data Entry" << endl;
+    cout << "**************************************************************************" << endl;
+
+    while (true)
     {
         ptrgames = new ComputerGame;   // always create a new object for every iteration
         ptrconsoles = new ConsoleGame; // always create a new object for every iteration
 
-        cout << "Do you want to enter data for a [1] Computer Game or a [2] Console Game: ";
+        cout << "Do you want to enter data for a Computer Game [o] or a Console Game [c]: ";
+
         cin >> ch;
 
-        if (ch == 1)
+        if (ch == 'o' || ch == 'O')
         {
-            ptrgames->getVideoData(); //get games input
-            ptrVideoGames.push_back(ptrgames); //save into the array of pointers
+            ptrgames->getVideoData();          // get games input
+            ptrVideoGames.push_back(ptrgames); // save into the array of pointers
         }
         else
         {
-            if (ch == 2)
+            if (ch == 'c' || ch == 'C')
             {
-                ptrconsoles->getVideoData(); //get console inputs
-                ptrVideoGames.push_back(ptrconsoles); //save into the array of pointers
+                ptrconsoles->getVideoData();          // get console inputs
+                ptrVideoGames.push_back(ptrconsoles); // save into the array of pointers
             }
             else
             {
-                cout << "Please select only '1' or '2'" << endl;
+                cout << "Please select only 'o' or 'c'" << endl;
+                continue; // this causes to loop back to the top
             }
         }
 
-        cout << "Do you want to add another item (1=Yes/0=No)? ";
+        cout << "\nDo you want to add another item (y/n)? ";
         cin >> choice;
-        if (choice == 0)
+        if (choice == 'n' || choice == 'N')
         {
             break;
         }
     }
 
-    cout << "Video Games List:" << endl;
-    cout << "****************************************" << endl;
+    cout << "\n*************************************************************************" << endl;
+    cout << "                              Video Games List:" << endl;
+    cout << "*************************************************************************" << endl;
 
-      
     for (int j = 0; j < (int)ptrVideoGames.size(); j++)
     {
         ptrVideoGames[j]->display();
