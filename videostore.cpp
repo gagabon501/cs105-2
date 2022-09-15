@@ -23,33 +23,17 @@ private:
     float price;
 
 public:
-    // Setters
-    void setTitle(string t)
-    // void setTitle(int t)
-    {
-        title = t;
+    // Virtual function to get data inputs from user
+    virtual void getVideoData() {
+        cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
+        cout << "Please enter the title of computer/console game: ";
+        getline(cin, title); //direct straight saving to the object's property
+        cout << "Please enter price: ";
+        cin >> price; //direct straight saving to the object's property
     }
 
-    void setPrice(float p)
-    {
-        price = p;
-    }
-
-    // Getters
-    // int getTitle()
-    string getTitle()
-
-    {
-        return title;
-    }
-
-    float getPrice()
-    {
-        return price;
-    }
-
-    // Display data from the class
-    void display()
+    // Display data from the class. Make this function a virtual function to effect dynamic binding
+    virtual void display()
     {
         cout << "\n*********************************" << endl;
         cout << "Title: " << title << endl;
@@ -63,18 +47,6 @@ private:
     string os;
 
 public:
-    // Setters
-    void setOs(string o)
-
-    {
-        os = o;
-    }
-
-    // Getters
-    string getOs()
-    {
-        return os;
-    }
 
     // Display function - function overriding - polymorphism. This display() function has added the display of the OS type.
     void display()
@@ -82,6 +54,15 @@ public:
         VideoGame::display();              // call the display function of the base class
         cout << "OS Type: " << os << endl; // then add the derived class' display method
     }
+    
+    //Function override
+    void getVideoData() {
+        VideoGame::getVideoData();
+        cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
+        cout << "Please enter operating system type: ";
+        getline(cin, os); //direct - straight saving to the object's property
+    }
+    
 };
 
 class ConsoleGame : public VideoGame
@@ -90,31 +71,27 @@ private:
     string os;
 
 public:
-    // Setters
-    void setOs(string o)
-    {
-        os = o;
-    }
-
-    // Getters
-    string getOs()
-    {
-        return os;
-    }
-
     // Display function - function overriding - polymorphism. This display() function has added the display of the console type.
     void display()
     {
         VideoGame::display();                   // call the display function of the base class
         cout << "Console Type: " << os << endl; // then add the derived class' display method
     }
+    
+    //Function override
+    void getVideoData() {
+        VideoGame::getVideoData();
+        cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
+        cout << "Please enter console type: ";
+        getline(cin, os); //direct - straight saving to the object's property
+    }
 };
 
 int main()
 {
 
-    vector<ComputerGame *> ptrCompGames; // use vector arrays for variable number of entries. This is an array of pointers to objects of the class ComputerGame
-    vector<ConsoleGame *> ptrConsGames;  // use vector arrays for variable number of entries. This is an array of pointers to objects of the class ConsoleGame
+    
+    vector<VideoGame *> ptrVideoGames;
 
     ComputerGame *ptrgames;
     ConsoleGame *ptrconsoles;
@@ -138,41 +115,15 @@ int main()
 
         if (ch == 1)
         {
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
-            cout << "Please enter the title of computer game: ";
-            getline(cin, titleGame);
-            ptrgames->setTitle(titleGame); // save immediately before any clearing the buffer command is encountered.
-
-            cout << "Please enter price: ";
-            cin >> priceGame;
-            ptrgames->setPrice(priceGame);
-
-            cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
-            cout << "Please enter operating system type: ";
-            getline(cin, osGame);
-            ptrgames->setOs(osGame); // save immediately before any clearing the buffer command is encountered.
-
-            ptrCompGames.push_back(ptrgames); // save the pointer into the vector array that holds every pointer to an object from the class ComputerGame. Using a vector means unlimited number of entries.
+            ptrgames->getVideoData(); //get games input
+            ptrVideoGames.push_back(ptrgames); //save into the array of pointers
         }
         else
         {
             if (ch == 2)
             {
-                cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // this clears the buffer thereby ensuring that any pending newline character does not get fed into variable and eventually causing a skip in the input
-                cout << "Please enter the title of console game: ";
-                getline(cin, titleGame);
-                ptrconsoles->setTitle(titleGame); // save immediately before any clearing the buffer command is encountered.
-
-                cout << "Please enter price: ";
-                cin >> priceGame;
-                ptrconsoles->setPrice(priceGame);
-
-                cin.ignore(numeric_limits<std::streamsize>::max(), '\n'); // clear the buffer
-                cout << "Please enter console type: ";
-                getline(cin, osGame);
-                ptrconsoles->setOs(osGame); // save immediately before any clearing the buffer command is encountered.
-
-                ptrConsGames.push_back(ptrconsoles); // save the pointer into the vector array that holds every pointer to an object from the class ComputerGame. Using a vector means unlimited number of entries.
+                ptrconsoles->getVideoData(); //get console inputs
+                ptrVideoGames.push_back(ptrconsoles); //save into the array of pointers
             }
             else
             {
@@ -191,14 +142,10 @@ int main()
     cout << "Video Games List:" << endl;
     cout << "****************************************" << endl;
 
-    for (int j = 0; j < (int)ptrCompGames.size(); j++)
+      
+    for (int j = 0; j < (int)ptrVideoGames.size(); j++)
     {
-        ptrCompGames[j]->display();
-    }
-
-    for (int j = 0; j < (int)ptrConsGames.size(); j++)
-    {
-        ptrConsGames[j]->display();
+        ptrVideoGames[j]->display();
     }
 
     return 0;
