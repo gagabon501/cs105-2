@@ -90,15 +90,10 @@ public:
 int main()
 {
 
-    
     vector<VideoGame *> ptrVideoGames;
 
     ComputerGame *ptrgames;
     ConsoleGame *ptrconsoles;
-
-    string titleGame;
-    float priceGame;
-    string osGame;
 
     int choice = 1, ch = 1;
 
