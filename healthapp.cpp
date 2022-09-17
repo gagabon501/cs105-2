@@ -22,7 +22,7 @@ private:
     string name;
 
 public:
-    // Setter function
+    // Setter function to save user input into the object of the class HealthActivity
     void SetFunction(string nameUser, int stepsWalked, float kmsRun)
     {
         walkingSteps = stepsWalked;

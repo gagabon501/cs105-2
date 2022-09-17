@@ -50,7 +50,7 @@ private:
     string os;
 
 public:
-    // Display function - function overriding - polymorphism. This display() function has added the display of the OS type.
+    // display() function - function overriding - polymorphism. This display() function has added the display of the OS type.
     void display()
     {
         VideoGame::display();                   // call the display function of the base class
@@ -75,7 +75,7 @@ private:
     string os;
 
 public:
-    // Display function - function overriding - polymorphism. This display() function has added the display of the console type.
+    // display() function - function overriding - polymorphism. This display() function has added the display of the console type.
     void display()
     {
         VideoGame::display();                   // call the display function of the base class
@@ -119,14 +119,14 @@ int main()
 
         if (ch == 'o' || ch == 'O')
         {
-            ptrgames->getVideoData();          // get games input - made the code cleaner by placing the routine to take user input inside the Base Class and into the Derived Class (the added data to take from user)
+            ptrgames->getVideoData();          // get games input - this made the code cleaner by placing the routine to take user input inside the Base Class and the specific data inputs are then defined in the Derived classes.
             ptrVideoGames.push_back(ptrgames); // save into the array of pointers
         }
         else
         {
             if (ch == 'c' || ch == 'C')
             {
-                ptrconsoles->getVideoData();          // get console inputs - made the code cleaner by placing the routine to take user input inside the Base Class and into the Derived Class (the added data to take from user)
+                ptrconsoles->getVideoData();          // get console inputs - this made the code cleaner by placing the routine to take user input inside the Base Class and the specific data inputs are then defined in the Derived classes.
                 ptrVideoGames.push_back(ptrconsoles); // save into the array of pointers
             }
             else
