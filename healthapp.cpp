@@ -22,12 +22,11 @@ private:
     string name;
 
 public:
-    // Setter function to save user input into the object of the class HealthActivity
-    void SetFunction(string nameUser, int stepsWalked, float kmsRun)
+    HealthActivity(string username, int steps, float distance)
     {
-        walkingSteps = stepsWalked;
-        runningDistance = kmsRun;
-        name = nameUser;
+        name = username;
+        walkingSteps = steps;
+        runningDistance = distance;
     }
 
     // Getter functions
@@ -44,7 +43,7 @@ public:
         return runningDistance;
     }
     // Display data from the class
-    void GetFunction()
+    void displayData()
     {
         cout << "Name: " << name << endl;
         cout << "Steps: " << walkingSteps << " steps" << endl;
@@ -52,37 +51,41 @@ public:
     }
 };
 
-int main()
+void setFunction(HealthActivity *ptrUsers[5])
 {
-    HealthActivity users[5], *ptrUsers; // define an array of users and a pointer to the array of type HealthActivity class
-    ptrUsers = users;                   // pointer to the array users of type HealthActivity
-    string userName = "";
-    int walkSteps = 0, steps = 0;
-    float runKms = 0.00, runs = 0.00;
-    float averageSteps = 0.00, averageDistance = 0.00;
-
-    // get data inputs
+    int walkSteps = 0;
+    float runKms = 0.00;
+    string name = "";
     for (int i = 0; i < 5; i++)
     {
         cout << "Enter the name, number of steps and walking + running distance: ";
-        cin >> userName;
+        cin >> name;
         cin >> walkSteps;
         cin >> runKms;
-        (ptrUsers + i)->SetFunction(userName, walkSteps, runKms); // save the inputted data into the array via the pointer by calling the SetFunction() method from the HealthActivity class
+        ptrUsers[i] = new HealthActivity(name, walkSteps, runKms);
     }
-
-    // display output
+}
+void getFunction(HealthActivity *ptrUsers[5])
+{
+    int sumSteps = 0;
+    float sumDistance = 0.00, avgSteps = 0.00, avgDistance = 0.00;
     for (int i = 0; i < 5; i++)
     {
-        (ptrUsers + i)->GetFunction();       // Display the inputted data via a pointer by calling the GetFunction() method from the HealthActivity class
-        steps += (ptrUsers + i)->GetSteps(); // sum the steps from the array of users via a pointer by calling the GetSteps() method from the HealthActivity class
-        runs += (ptrUsers + i)->GetRuns();   // sum the distance from the array of users via a pointer by calling the GetRuns() method from the HealthActivity class
+        ptrUsers[i]->displayData();
+        sumSteps += ptrUsers[i]->GetSteps();
+        sumDistance += ptrUsers[i]->GetRuns();
     }
+    avgSteps = sumSteps / 5;
+    avgDistance = sumDistance / 5;
+    cout << "Average steps of 5 users: " << avgSteps << " steps" << endl;
+    cout << "Average distance of walking + running for 5 users: " << avgDistance << " kms" << endl;
+}
 
-    averageSteps = steps / 5;   // Compute the average of 5 users
-    averageDistance = runs / 5; // Compute the average of 5 users
-    cout << "Average steps of 5 users: " << averageSteps << " steps" << endl;
-    cout << "Average distance of walking + running for 5 users: " << averageDistance << " kms" << endl;
+int main()
+{
+    HealthActivity *ptrUsers[5]; // define an array of users and a pointer to the array of type HealthActivity class
+    setFunction(ptrUsers);
+    getFunction(ptrUsers);
 
     return 0;
 }
