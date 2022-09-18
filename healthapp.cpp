@@ -22,7 +22,7 @@ private:
     string name;
 
 public:
-    HealthActivity(string username, int steps, float distance)
+    HealthActivity(string username, int steps, float distance) // class constructor
     {
         name = username;
         walkingSteps = steps;
@@ -51,6 +51,7 @@ public:
     }
 };
 
+// this setFunction() receives an array of pointers to objects from the class HealthActivity
 void setFunction(HealthActivity *ptrUsers[5])
 {
     int walkSteps = 0;
@@ -62,30 +63,32 @@ void setFunction(HealthActivity *ptrUsers[5])
         cin >> name;
         cin >> walkSteps;
         cin >> runKms;
-        ptrUsers[i] = new HealthActivity(name, walkSteps, runKms);
+        ptrUsers[i] = new HealthActivity(name, walkSteps, runKms); // create the object and save the address of that object to the array
     }
 }
+
+// this getFunction() receives an arra of pointers to objects from the class HealthActivity
 void getFunction(HealthActivity *ptrUsers[5])
 {
     int sumSteps = 0;
     float sumDistance = 0.00, avgSteps = 0.00, avgDistance = 0.00;
     for (int i = 0; i < 5; i++)
     {
-        ptrUsers[i]->displayData();
-        sumSteps += ptrUsers[i]->GetSteps();
-        sumDistance += ptrUsers[i]->GetRuns();
+        ptrUsers[i]->displayData();            // call the method to display the data of the current object
+        sumSteps += ptrUsers[i]->GetSteps();   // accumulate the number of steps taken
+        sumDistance += ptrUsers[i]->GetRuns(); // accumulate the distance taken
     }
-    avgSteps = sumSteps / 5;
-    avgDistance = sumDistance / 5;
+    avgSteps = sumSteps / 5;       // computer for the average of the number of steps taken
+    avgDistance = sumDistance / 5; // compute for the average of the distances taken
     cout << "Average steps of 5 users: " << avgSteps << " steps" << endl;
     cout << "Average distance of walking + running for 5 users: " << avgDistance << " kms" << endl;
 }
 
 int main()
 {
-    HealthActivity *ptrUsers[5]; // define an array of users and a pointer to the array of type HealthActivity class
-    setFunction(ptrUsers);
-    getFunction(ptrUsers);
+    HealthActivity *ptrUsers[5]; // define an array of pointers to objects
+    setFunction(ptrUsers);       // get user inputs
+    getFunction(ptrUsers);       // display outputs
 
     return 0;
 }
