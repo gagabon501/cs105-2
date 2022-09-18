@@ -67,7 +67,7 @@ void setFunction(HealthActivity *ptrUsers[5])
     }
 }
 
-// this getFunction() receives an arra of pointers to objects from the class HealthActivity
+// this getFunction() receives an array of pointers to objects from the class HealthActivity
 void getFunction(HealthActivity *ptrUsers[5])
 {
     int sumSteps = 0;
