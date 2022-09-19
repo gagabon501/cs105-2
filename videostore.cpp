@@ -151,7 +151,7 @@ int main()
     cout << "                 Video Games Data Entry" << endl;
     cout << "**************************************************************************" << endl;
 
-    while (choice != 'n' || choice != 'N' && VideoGame::videoGameCount < 5)
+    while (true)
     {
 
         cout << "\nDo you want to enter data for a Computer Game [o] or a Console Game [c]: ";
@@ -180,7 +180,7 @@ int main()
 
         cout << "\nDo you want to add another item (y/n)? ";
         cin >> choice;
-        if (choice == 'n' || choice == 'N')
+        if (choice == 'n' || choice == 'N' || VideoGame::videoGameCount > 4)
         {
             break;
         }
